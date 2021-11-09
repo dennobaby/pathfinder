@@ -32,16 +32,20 @@ final class PathFinder
      * @param $array
      * @param $path
      * @param $value
+     * @param bool $force
+     * @return false|mixed
      */
-    public static function setPathValue(&$array, $path, $value)
+    public static function setPathValue(&$array, $path, $value, $force = false)
     {
         $pre = &$array;
-        if(self::getPathValue($pre, $path)){
+        if(self::getPathValue($pre, $path) || $force){
             $steps = explode('.', $path);
             foreach ($steps as $step){
                 $pre = &$pre[$step];
             }
             $pre = $value;
         }
+
+        return self::getPathValue($array, $path);
     }
 }

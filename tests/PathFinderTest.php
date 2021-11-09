@@ -64,6 +64,11 @@ final class PathFinderTest extends TestCase
         );
     }
 
+    public function testFind_5()
+    {
+        $this->assertEquals(false, PathFinder::getPathValue([], 'some.empty.path.in.nonexisting.array'));
+    }
+
     public function testSet_1()
     {
         PathFinder::setPathValue($this->array, 'some.deep.path', 34);
@@ -91,6 +96,12 @@ final class PathFinderTest extends TestCase
             $sub,
             PathFinder::getPathValue($this->array, 'other.other.level.in')
         );
+    }
+
+    public function testForceSet_1()
+    {
+        PathFinder::setPathValue($this->array, 'completely.different.path', 'foobar', true);
+        $this->assertEquals('foobar', PathFinder::getPathValue($this->array, 'completely.different.path'));
     }
 
 }
